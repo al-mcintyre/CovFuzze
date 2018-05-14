@@ -1,5 +1,5 @@
-# gene_peak_plot
-A python script to plot gene coverage and IP peaks with standard deviations calculated from multiple replicates 
+# CovFuzze Plot
+A python script to plot gene coverage and IP peaks with standard deviations calculated from multiple replicates. 
 
 usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed 
                          BED [--gtf GTF] [-p PEAKS] -l LABELS [LABELS ...]
@@ -31,7 +31,7 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 
 ## Example:
 ```
-gene_peak_plot.py -o $outdir/$prefix --bams 
+covfuzze.py -o $outdir/$prefix --bams 
     alignments/sample_1_Input.sample.star.bam alignments/sample_1_IP.sample.star.bam 
     alignments/sample_2_Input.sample.star.bam alignments/sample_2_IP.sample.star.bam 
     alignments/sample_3_Input.sample.star.bam alignments/sample_3_IP.sample.star.bam 
