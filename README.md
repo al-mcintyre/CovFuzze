@@ -5,6 +5,14 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
                          BED [--gtf GTF] [-p PEAKS] -l LABELS [LABELS ...]
                          [-n NSUBPLOTS] [--normalize]
 
+## dependencies:
+- numpy, tested with 1.11.1
+- pysam, tested with 0.9.1
+- pandas, tested with 0.18.1
+- seaborn, tested with 0.7.1 
+- matplotlib, tested with 2.0.2
+- pybedtools, tested with 0.7.10 
+
 ## required arguments:
 ```
   -o OUT, --out OUT     output prefix (incl. dir) 

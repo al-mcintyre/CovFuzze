@@ -50,6 +50,7 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
         strand = '+'
     print '{} strand'.format(strand)
 
+    print cds_indices
     coverage = {}
     bed = BedTool(bedname)
     for label,bamname in zip(labels,bams): #add replicates here
@@ -104,14 +105,14 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
     print "peaks added"
 
     sns.set_style("ticks")
-    figp,axes = plt.subplots(figsize = (5*nsubplots,4), ncols = nsubplots,sharey=True)
+    figp,axes = plt.subplots(figsize = (5,2*nsubplots), nrows = nsubplots,sharey=True,sharex=True)
     if nsubplots == 1:
         axes = [axes]
     print "{} subplots".format(len(axes))
     #pal1 = cm.ScalarMappable(sns.light_palette("navy", as_cmap=True, reverse=True)).to_rgba(range(len(labels)/2))
     #pal2 = cm.ScalarMappable(sns.light_palette("orange", reverse=True, as_cmap=True)).to_rgba(range(len(labels)/2))
     #colours = [(0,0,0,1)]*len(labels)
-    colours = ['#006e90','#f18f01']*nsubplots #,'#adcad6','#c2724d','#9883e5','#f76b49','#3a208e','#f24236'] #don't like the colours? change them here!
+    colours = ['#000000','#2294a3']*nsubplots #,'#006e90','#f18f01']*nsubplots #,'#adcad6','#c2724d','#9883e5','#f76b49','#3a208e','#f24236'] #don't like the colours? change them here!
     #colours[::2] = pal1 
     #colours[1::2] = pal2
     #print colours
@@ -147,30 +148,32 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
             sp += 1
         if reps:
             #print ys[:10],std[:10]
-            maxpeak = max(maxpeak,max(ys+std))
+            #maxpeak = max(maxpeak,ax.get_ylim()[1]) #max(ys+std))
             ax.fill_between(xs, ys-std, ys+std ,alpha=0.3, facecolor=col)
-        else:
-            maxpeak = max([maxpeak]+ys)
+        maxpeak = max(maxpeak,ax.get_ylim()[1])
+        #else:
+            #maxpeak = ax.get_ylim()[1] #max([maxpeak]+ax.get_ylim()[1])
     for i,ax in enumerate(axes):
         for (s,e) in cds_indices:
-            #print s,e 
+            print s,e 
             rect = matplotlib.patches.Rectangle((indices[s],0), indices[e]-indices[s], maxpeak, angle=0.0, alpha = 0.1, color = '#a5abaf')
             ax.add_patch(rect)
         for peak in peaks:
             rect = matplotlib.patches.Rectangle((peak[0],0), peak[1]-peak[0], maxpeak, angle=0.0, alpha = 0.3, color = '#ffff00')
             ax.add_patch(rect)
-        ax.set_xlabel(gene)
+        #ax.set_xlabel(gene)
         ax.xaxis.set_ticks(np.arange(0,gene_len,500))
         ax.set_xlim([0,gene_len+1])
         #print maxpeak, int(0.05*maxpeak)
-        ax.set_ylim([0,maxpeak+int(0.05*maxpeak)])
-        if i == 0:
-            if normalize:
-                ax.set_ylabel('normalized\ncoverage')
-            else:
-                ax.set_ylabel('coverage')
+        ax.set_ylim([0,maxpeak]) #+int(0.05*maxpeak)])
+        if normalize:
+            ax.set_ylabel('normalized\ncoverage')
+        else:
+            ax.set_ylabel('coverage')
+        if i == nsubplots-1:
+            ax.set_xlabel(gene)
         ax.legend(loc=2)
-    sns.despine(fig=figp)
+    #sns.despine(fig=figp)
     plt.tight_layout()
     plt.savefig(outpref+'_'+gene+'_coverage.pdf',dpi=500,bbox_inches='tight')
 
