@@ -162,7 +162,7 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
             rect = matplotlib.patches.Rectangle((peak[0],0), peak[1]-peak[0], maxpeak, angle=0.0, alpha = 0.3, color = '#ffff00')
             ax.add_patch(rect)
         #ax.set_xlabel(gene)
-        ax.xaxis.set_ticks(np.arange(0,gene_len,500))
+        ax.xaxis.set_ticks(np.arange(0,gene_len,max(100*np.round(gene_len/500.,0),500)))
         ax.set_xlim([0,gene_len+1])
         #print maxpeak, int(0.05*maxpeak)
         ax.set_ylim([0,maxpeak]) #+int(0.05*maxpeak)])
@@ -189,7 +189,12 @@ def main():
     parser.add_argument('-l','--labels',nargs='+',required=True,help='labels associated with bams - if replicates, use same labels')
     parser.add_argument('-n','--nsubplots',type=int,required=False,help='number of subplots- bams will be split evenly based on the order given (default = 1)',default=1)
     parser.add_argument('--normalize',action='store_true',required=False,help='normalize by gene length/summed coverage (default = False)',default=False)
+    parser.add_argument('-v','--version',action='store_true',required=False,help='print version')
+
     args = parser.parse_args()
+    if args.version:
+        print('CovFuzze v0.1')
+        sys.exit(0)
     outdir = (args.out).split('/')
     if len(outdir) > 1:
         outdir = outdir[0]
