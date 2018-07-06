@@ -1,0 +1,3 @@
+from .covfuzze import *
+
+main()

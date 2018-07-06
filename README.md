@@ -11,7 +11,7 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 - pandas, tested with 0.18.1
 - seaborn, tested with 0.7.1 
 - matplotlib, tested with 2.0.2
-- pybedtools, tested with 0.7.10 
+- pybedtools, tested with 0.7.10 - requires bedtools available in path
 
 ## required arguments:
 ```

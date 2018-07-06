@@ -1,0 +1,38 @@
+package:
+  name: covfuzze
+  version: v0.1
+
+source:
+  git_rev: v0.1
+  git_url: https://github.com/al-mcintyre/CovFuzze
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - seaborn
+    - numpy
+    - pysam
+    - matplotlib
+    - pybedtools
+
+  run:
+    - python
+
+test:
+  imports:
+    - covfuzze
+    - pybedtools
+    - numpy
+    - pysam
+    - pandas
+    - seaborn
+    - matplotlib
+    - re
+    - os
+    - sys
+
+about:
+  home: https://github.com/al-mcintyre/CovFuzze
+  license: MIT
+  license_file: LICENSE
