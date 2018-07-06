@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='covfuzze',
-    version='0.1',
+    version='0.1.2',
     py_modules=['covfuzze'],
     author='al-mcintyre',
     author_email='abm237@cornell.edu',

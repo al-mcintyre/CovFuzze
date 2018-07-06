@@ -1,9 +1,9 @@
 package:
   name: covfuzze
-  version: v0.1
+  version: v0.1.2
 
 source:
-  git_rev: v0.1
+  git_rev: v0.1.2
   git_url: https://github.com/al-mcintyre/CovFuzze
 
 requirements:
