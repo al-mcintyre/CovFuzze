@@ -189,12 +189,9 @@ def main():
     parser.add_argument('-l','--labels',nargs='+',required=True,help='labels associated with bams - if replicates, use same labels')
     parser.add_argument('-n','--nsubplots',type=int,required=False,help='number of subplots- bams will be split evenly based on the order given (default = 1)',default=1)
     parser.add_argument('--normalize',action='store_true',required=False,help='normalize by gene length/summed coverage (default = False)',default=False)
-    parser.add_argument('-v','--version',action='store_true',required=False,help='print version')
+    parser.add_argument('-v','--version',action='version',version='%(prog)s (v0.1.2)') 
 
     args = parser.parse_args()
-    if args.version:
-        print('CovFuzze v0.1')
-        sys.exit(0)
     outdir = (args.out).split('/')
     if len(outdir) > 1:
         outdir = outdir[0]
