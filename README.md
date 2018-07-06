@@ -10,8 +10,15 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 - pysam, tested with 0.9.1
 - pandas, tested with 0.18.1
 - seaborn, tested with 0.7.1 
-- matplotlib, tested with 2.0.2
+- matplotlib, tested with 2.0.2 - requires macosx backend to run on mac and may have issues with pip install - try conda 
 - pybedtools, tested with 0.7.10 - requires bedtools available in path
+
+## installation
+Easiest way:
+```
+pip install covfuzze
+```
+If you have issues with dependencies, try installing separately with conda or as appropriate for your OS 
 
 ## required arguments:
 ```
@@ -27,7 +34,7 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 ```
   -h, --help            show this help message and exit 
   -g GENE, --gene GENE  gene name (default = GeneDoe) 
-  --gtf GTF             gtf file for gene to plot exons as shaded regions 
+  --gtf GTF             gtf file for gene to plot cds as shaded regions separated by exon
   -p PEAKS, --peaks PEAKS 
                         bed file with peaks
   -n NSUBPLOTS, --nsubplots NSUBPLOTS 
@@ -39,7 +46,7 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 
 ## Example:
 ```
-covfuzze.py -o $outdir/$prefix --bams 
+covfuzze -o $outdir/$prefix --bams 
     alignments/sample_1_Input.sample.star.bam alignments/sample_1_IP.sample.star.bam 
     alignments/sample_2_Input.sample.star.bam alignments/sample_2_IP.sample.star.bam 
     alignments/sample_3_Input.sample.star.bam alignments/sample_3_IP.sample.star.bam 
