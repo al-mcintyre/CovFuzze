@@ -1,9 +1,12 @@
 # CovFuzze Plot
-A python script to plot gene coverage and IP peaks with standard deviations calculated from multiple replicates. 
+A python script to plot gene coverage and IP peaks with standard deviations calculated from multiple replicates. [covfʌzeɪ]
 
-usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed 
+Note: up until v0.1.3, coverage has been calculated using bedtools coverage -d. This considers gaps across positions as +1 reads. 
+Future versions will migrate to other (preferably faster) methods that don't count gaps.  
+
+usage: covfuzze [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed 
                          BED [--gtf GTF] [-p PEAKS] -l LABELS [LABELS ...]
-                         [-n NSUBPLOTS] [--normalize]
+                         [-n NSUBPLOTS] [--normalize] [--scale]
 
 ## dependencies:
 - numpy, tested with 1.11.1
@@ -12,13 +15,14 @@ usage: gene_peak_plot.py [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
 - seaborn, tested with 0.7.1 
 - matplotlib, tested with 2.0.2 - requires macosx backend to run on mac and may have issues with pip install - try conda 
 - pybedtools, tested with 0.7.10 - requires bedtools available in path
+It requires quite a bit of memory to run with whole genome bam files. If running on a cluster, recommend allocating 200GB. 
 
 ## installation
 Easiest way:
 ```
 pip install covfuzze
 ```
-If you have issues with dependencies, try installing separately with conda or as appropriate for your OS 
+If you have issues with dependencies, try installing them separately with conda or as appropriate for your OS 
 
 ## required arguments:
 ```
@@ -40,8 +44,9 @@ If you have issues with dependencies, try installing separately with conda or as
   -n NSUBPLOTS, --nsubplots NSUBPLOTS 
                         number of subplots- bams will be split evenly based on 
                         the order given (default = 1) 
-  --normalize           normalize by gene length/summed coverage (default = 
-                        False)
+  --normalize           normalize by gene length/summed coverage (default = False)
+  --scale               scale y axis separately for each subplot (default = False)
+
 ```
 
 ## Example:
@@ -52,5 +57,5 @@ covfuzze -o $outdir/$prefix --bams
     alignments/sample_3_Input.sample.star.bam alignments/sample_3_IP.sample.star.bam 
     --bed ${gene}_exons.bed 
     -l sample_Input sample_IP sample_Input sample_IP sample_Input sample_IP 
-    --gene ${gene} -n 1 --normalize
+    --gene ${gene} -n 1 --scale
 ```

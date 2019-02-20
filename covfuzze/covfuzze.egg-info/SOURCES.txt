@@ -1,0 +1,14 @@
+MANIFEST.in
+README.md
+setup.py
+covfuzze/__init__.py
+covfuzze/__init__.pyc
+covfuzze/__main__.py
+covfuzze/covfuzze.py
+covfuzze/covfuzze.pyc
+covfuzze/covfuzze.egg-info/PKG-INFO
+covfuzze/covfuzze.egg-info/SOURCES.txt
+covfuzze/covfuzze.egg-info/dependency_links.txt
+covfuzze/covfuzze.egg-info/entry_points.txt
+covfuzze/covfuzze.egg-info/requires.txt
+covfuzze/covfuzze.egg-info/top_level.txt
