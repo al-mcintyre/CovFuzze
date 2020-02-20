@@ -66,7 +66,7 @@ def get_peaks(peakname,indices,strand):
                     peaks.append((ind_s,ind_e))
     except TypeError:
         pass
-    print "peaks added"
+    print ("peaks added")
     return(peaks)
 
 def get_peakset(peakname,normalize):
@@ -102,7 +102,7 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
                 cds_indices.append(inds)
     else:
         strand = '+'
-    print '{} strand'.format(strand)
+    print ('{} strand'.format(strand))
 
     peakset = get_peakset(peakname,normalize)
 
@@ -115,7 +115,9 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
         gene_cov = []
         tot_cov,fullcov = 0, 0
         for i,line in enumerate(cov):
-            csome, start, end, intind, nreads = str(line).split('\t')
+            items = str(line).split('\t')
+            del items[2:-2]
+            csome, start, intind, nreads = items
             #print line
             indices[int(start)+int(intind)-1] = i
             gene_cov.append(int(nreads))
@@ -127,11 +129,11 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
             length_exon = len(indices)
             for ind in indices:
                 indices[ind] = length_exon - indices[ind] - 1
-        print 'coverage',tot_cov,fullcov
+        print ('coverage',tot_cov,fullcov)
         if not normalize:
             tot_cov = fullcov
         coverage = fill_coverage(coverage,strand,gene_cov,label,normalize,tot_cov)
-        print "coverage calculated for {}: {}...".format(label,','.join([str(x) for x in gene_cov[:10]]))
+        print ("coverage calculated for {}: {}...".format(label,','.join([str(x) for x in gene_cov[:10]])))
 
     peaks = get_peaks(peakname,indices,strand)
 
@@ -142,7 +144,7 @@ def plot_gene(gene,outpref,bams,bedname,gtfname,peakname,labels,nsubplots,normal
         figp,axes = plt.subplots(figsize = (3.5,1.5*nsubplots), nrows = nsubplots,sharey=False,sharex=True) #change size
     if nsubplots == 1:
         axes = [axes]
-    print "{} subplots".format(len(axes))
+    print ("{} subplots".format(len(axes)))
     #pal1 = cm.ScalarMappable(sns.light_palette("navy", as_cmap=True, reverse=True)).to_rgba(range(len(labels)/2))
     #pal2 = cm.ScalarMappable(sns.light_palette("orange", reverse=True, as_cmap=True)).to_rgba(range(len(labels)/2))
     #colours = [(0,0,0,1)]*len(labels)
@@ -246,7 +248,7 @@ def main():
     assert len(args.labels) == len(args.bams), 'mismatch between length of bam list and length of conditions'
     for fi in args.bams + [args.bed]: 
         assert os.path.isfile(fi),'no file found at {}'.format([fi])
-    print 'sample {}: plotting coverage for {}...'.format(args.out,args.gene)
+    print ('sample {}: plotting coverage for {}...'.format(args.out,args.gene))
     plot_gene(args.gene,args.out,args.bams,args.bed,args.gtf,args.peaks,args.labels,args.nsubplots,args.normalize,args.scale)
 
 
