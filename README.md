@@ -9,6 +9,7 @@ usage: covfuzze [-h] [-g GENE] [-o OUT] --bams BAMS [BAMS ...] --bed
                          [-n NSUBPLOTS] [--normalize] [--scale]
 
 ## dependencies:
+Now requires python3 for compatibility with current versions of seaborn!
 - numpy, tested with 1.11.1
 - pysam, tested with 0.9.1
 - pandas, tested with 0.18.1
